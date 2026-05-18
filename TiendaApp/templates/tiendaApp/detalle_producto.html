@@ -1,0 +1,80 @@
+{% extends 'TiendaApp/base.html' %}
+{% load static %}
+
+{% block title %}{{ producto.nombre }}{% endblock %}
+
+{% block content %}
+
+<section class="detalle-producto">
+
+    <div class="imagen-detalle">
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+    </div>
+
+    <div class="info-detalle">
+
+        <div class="detalle-breadcrumb">
+            <a href="/productos/">Productos</a>
+            <span>→</span>
+            <span>{{ producto.nombre }}</span>
+        </div>
+
+        <h1 class="detalle-titulo">{{ producto.nombre }}</h1>
+
+        <p class="precio-detalle">${{ producto.precio }}</p>
+
+        <p class="detalle-desc">{{ producto.descripcion }}</p>
+
+        <div class="detalle-acciones">
+            <a href="/agregar/{{ producto.id }}/" class="btn-confirmar btn-carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Agregar al carrito
+            </a>
+            <a href="/productos/" class="btn-ghost">
+                ← Seguir comprando
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+{% if relacionados %}
+<section class="productos-relacionados">
+
+    <div class="productos-page-header">
+        <h2 class="titulo-productos">También te puede <em>gustar</em></h2>
+    </div>
+
+    <div class="contenedor-productos relacionados-grid">
+
+        {% for item in relacionados %}
+
+        <div class="card-producto">
+
+            <div class="card-imagen">
+                <img src="{{ item.imagen.url }}" alt="{{ item.nombre }}">
+                <div class="card-overlay">
+                    <a href="/producto/{{ item.slug }}/" class="overlay-link">Ver detalles</a>
+                </div>
+            </div>
+
+            <div class="contenido-card">
+                <h3>{{ item.nombre }}</h3>
+                <p class="precio">${{ item.precio }}</p>
+                <div class="botones-card">
+                    <a href="/producto/{{ item.slug }}/" class="btn-outline">Ver detalles</a>
+                    <a href="/agregar/{{ item.id }}/" class="btn-agregar">+ Agregar</a>
+                </div>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+{% endif %}
+
+{% endblock %}

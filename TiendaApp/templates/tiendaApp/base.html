@@ -1,0 +1,169 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+            LUJO SOBRE RUEDAS
+        {% endblock %}
+    </title>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="/" class="logo">
+            <img src="{% static 'img/logo.jpeg' %}" alt="Lujo Sobre Ruedas">
+            <span>Lujo Sobre Ruedas</span>
+        </a>
+
+        <button class="menu-toggle">
+            <i data-lucide="menu"></i>
+        </button>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">
+                    <i data-lucide="house"></i>
+                    Inicio
+                </a>
+            </li>
+
+            <li>
+                <a href="/productos/">
+                    <i data-lucide="package"></i>
+                    Productos
+                </a>
+            </li>
+
+            <li>
+                <a href="/carrito/">
+                    <i data-lucide="shopping-cart"></i>
+                    Carrito
+                </a>
+            </li>
+
+            {% if user.is_authenticated %}
+
+                <li>
+                    <a href="/mis-pedidos/">
+                        <i data-lucide="clipboard-list"></i>
+                        Mis pedidos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/logout/">
+                        <i data-lucide="log-out"></i>
+                        Cerrar sesión
+                    </a>
+                </li>
+
+            {% else %}
+
+                <li>
+                    <a href="/login/">
+                        <i data-lucide="log-in"></i>
+                        Login
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/registro/">
+                        <i data-lucide="user-plus"></i>
+                        Registro
+                    </a>
+                </li>
+
+            {% endif %}
+
+            {% if user.is_staff %}
+                <li>
+                    <a href="/dashboard/">
+                        <i data-lucide="layout-dashboard"></i>
+                        Dashboard
+                    </a>
+                </li>
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+    <!-- CONTENIDO -->
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-contenido">
+
+            <div class="footer-logo">
+                <img src="{% static 'logo.jpeg' %}" alt="Lujo Sobre Ruedas">
+            </div>
+
+            <p>
+                <i data-lucide="copyright"></i>
+                Todos los derechos reservados
+            </p>
+
+            <div class="redes">
+
+                <a href="#">
+                    <i data-lucide="facebook"></i>
+                    Facebook
+                </a>
+
+                <a href="#">
+                    <i data-lucide="instagram"></i>
+                    Instagram
+                </a>
+
+                <a href="#">
+                    <i data-lucide="message-circle"></i>
+                    WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

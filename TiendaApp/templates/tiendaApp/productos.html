@@ -1,0 +1,83 @@
+{% extends 'TiendaApp/base.html' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+
+<section class="productos">
+
+    <div class="productos-page-header">
+
+        <div class="productos-titulo-wrap">
+            <h1 class="titulo-productos">
+                Todos los <em>productos</em>
+            </h1>
+            <p class="productos-subtitulo">Encuentra lo que buscas entre nuestra colección</p>
+        </div>
+
+        {% if user.is_superuser %}
+        <a href="/crear-producto/" class="btn-nuevo-producto">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Agregar producto
+        </a>
+        {% endif %}
+
+    </div>
+
+    <!-- Buscador -->
+    <form method="GET" class="buscador">
+        <div class="buscador-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input
+                type="text"
+                name="buscar"
+                placeholder="Buscar productos..."
+                value="{{ request.GET.buscar }}"
+                autocomplete="off"
+            >
+        </div>
+        <button type="submit" class="btn-buscar">Buscar</button>
+    </form>
+
+    <!-- Grid -->
+    <div class="contenedor-productos">
+
+        {% for producto in productos %}
+
+        <div class="card-producto">
+
+            <div class="card-imagen">
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                <div class="card-overlay">
+                    <a href="/producto/{{ producto.slug }}/" class="overlay-link">Ver detalles</a>
+                </div>
+            </div>
+
+            <div class="contenido-card">
+                <h3>{{ producto.nombre }}</h3>
+                <p class="precio">${{ producto.precio }}</p>
+                <p class="card-desc">{{ producto.descripcion|truncatechars:90 }}</p>
+
+                <div class="botones-card">
+                    <a href="/producto/{{ producto.slug }}/" class="btn-outline">Ver detalles</a>
+                    <a href="/agregar/{{ producto.id }}/" class="btn-agregar">+ Agregar</a>
+                </div>
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="productos-vacio">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <p>No se encontraron productos.</p>
+            <a href="/productos/" class="btn-outline">Ver todos</a>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

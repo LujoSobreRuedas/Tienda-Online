@@ -1,0 +1,127 @@
+{% extends 'TiendaApp/base.html' %}
+
+{% block title %}Carrito de compras{% endblock %}
+
+{% block content %}
+
+<section class="carrito">
+
+    <div class="carrito-header">
+        <h1 class="carrito-titulo">
+            Tu <em>carrito</em>
+        </h1>
+    </div>
+
+    {% if request.session.carrito.items %}
+
+    <div class="carrito-layout">
+
+        <!-- Tabla de productos -->
+        <div class="carrito-tabla-wrap">
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for key, value in request.session.carrito.items %}
+                    <tr>
+
+                        <td class="td-producto">
+                            <img src="{{ value.imagen }}" alt="{{ value.nombre }}">
+                            <span>{{ value.nombre }}</span>
+                        </td>
+
+                        <td>${{ value.precio }}</td>
+
+                        <td>
+                            <div class="cantidad-control">
+                                <a href="/restar/{{ value.producto_id }}/" class="qty-btn">−</a>
+                                <span class="qty-num">{{ value.cantidad }}</span>
+                                <a href="/agregar/{{ value.producto_id }}/" class="qty-btn">+</a>
+                            </div>
+                        </td>
+
+                        <td class="td-subtotal">
+                            ${{ value.precio|floatformat:2 }}
+                        </td>
+
+                        <td>
+                            <a href="/eliminar/{{ value.producto_id }}/" class="btn-eliminar" title="Eliminar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                            </a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+            <div class="carrito-acciones">
+                <a href="/limpiar/" class="btn-vaciar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                    Vaciar carrito
+                </a>
+            </div>
+        </div>
+
+        <!-- Resumen del pedido -->
+        <aside class="carrito-resumen">
+
+            <h3>Resumen del pedido</h3>
+
+            <div class="resumen-lineas">
+                {% for key, value in request.session.carrito.items %}
+                <div class="resumen-linea">
+                    <span>{{ value.nombre }} × {{ value.cantidad }}</span>
+                    <span>${{ value.precio|floatformat:2 }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="resumen-divider"></div>
+
+            <div class="resumen-total">
+                <span>Total</span>
+                <span class="resumen-total-valor">Ver al pagar</span>
+            </div>
+
+            <a href="/checkout/" class="btn-checkout">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                Finalizar compra
+            </a>
+
+            <a href="/productos/" class="btn-seguir">
+                ← Seguir comprando
+            </a>
+
+        </aside>
+
+    </div>
+
+    {% else %}
+
+    <div class="carrito-vacio">
+        <div class="carrito-vacio-icono">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <h2>Tu carrito está vacío</h2>
+        <p>Aún no has agregado ningún producto.</p>
+        <a href="/productos/" class="btn-checkout">
+            Ver productos
+        </a>
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

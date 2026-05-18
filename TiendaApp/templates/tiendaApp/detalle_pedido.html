@@ -1,0 +1,120 @@
+{% extends 'TiendaApp/base.html' %}
+
+{% block title %}Pedido #{{ pedido.id }}{% endblock %}
+
+{% block content %}
+
+<section class="detalle-pedido">
+
+    <!-- Encabezado -->
+    <div class="detalle-pedido-header">
+
+        <a href="/mis-pedidos/" class="pedido-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Mis pedidos
+        </a>
+
+        <div class="detalle-pedido-titulo-row">
+            <h1 class="detalle-pedido-titulo">Pedido <em>#{{ pedido.id }}</em></h1>
+            <span class="pedido-estado pedido-estado--{{ pedido.estado|lower }}">
+                {% if pedido.estado == 'pendiente' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {% elif pedido.estado == 'enviado' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {% elif pedido.estado == 'entregado' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                {% endif %}
+                {{ pedido.estado|capfirst }}
+            </span>
+        </div>
+
+    </div>
+
+    <div class="detalle-pedido-layout">
+
+        <!-- Tabla de productos -->
+        <div class="detalle-pedido-productos">
+
+            <h2 class="detalle-seccion-titulo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                Productos
+            </h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cant.</th>
+                        <th>Precio unit.</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalles %}
+                    <tr>
+                        <td class="td-nombre-producto">{{ item.producto.nombre }}</td>
+                        <td>
+                            <span class="qty-badge">× {{ item.cantidad }}</span>
+                        </td>
+                        <td>${{ item.precio }}</td>
+                        <td class="td-subtotal">${{ item.subtotal }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total -->
+            <div class="detalle-total-row">
+                <span>Total del pedido</span>
+                <span class="detalle-total-valor">${{ pedido.total }}</span>
+            </div>
+
+        </div>
+
+        <!-- Info lateral -->
+        <aside class="detalle-pedido-info">
+
+            <div class="pedido-info-card">
+                <h3 class="detalle-seccion-titulo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Información
+                </h3>
+
+                <div class="pedido-info-fila">
+                    <span class="pedido-info-label">Fecha</span>
+                    <span class="pedido-info-valor">{{ pedido.fecha|date:"d M Y, H:i" }}</span>
+                </div>
+
+                <div class="pedido-info-fila">
+                    <span class="pedido-info-label">Nombre</span>
+                    <span class="pedido-info-valor">{{ pedido.nombre }}</span>
+                </div>
+
+                <div class="pedido-info-fila">
+                    <span class="pedido-info-label">Teléfono</span>
+                    <span class="pedido-info-valor">{{ pedido.telefono }}</span>
+                </div>
+
+                <div class="pedido-info-fila">
+                    <span class="pedido-info-label">Ciudad</span>
+                    <span class="pedido-info-valor">{{ pedido.ciudad }}</span>
+                </div>
+
+                <div class="pedido-info-fila">
+                    <span class="pedido-info-label">Dirección</span>
+                    <span class="pedido-info-valor">{{ pedido.direccion }}</span>
+                </div>
+
+            </div>
+
+            <a href="/mis-pedidos/" class="btn-ghost" style="text-align:center;">
+                ← Volver a mis pedidos
+            </a>
+
+        </aside>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'TiendaApp/base.html' %}
+
+{% block title %}
+Iniciar sesión
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-container">
+
+    <form method="POST" class="auth-form">
+
+        {% csrf_token %}
+
+        <h2>Iniciar sesión</h2>
+
+        {{ form.as_p }}
+
+        <div style="text-align: right; margin-top: -12px; margin-bottom: 20px;">
+            <a href="/accounts/password_reset/" style="font-size: 13px; color: #4f46e5; font-weight: 600; text-decoration: none;">
+                ¿Olvidaste tu contraseña?
+            </a>
+        </div>
+
+        <button type="submit">
+            Ingresar
+        </button>
+
+        <p class="auth-link">
+            ¿No tienes cuenta? <a href="/registro/">Crear cuenta</a>
+        </p>
+
+    </form>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'TiendaApp/base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+ 
+    <div class="hero-content">
+ 
+        <h1>
+            Encuentra lo que<br>
+            <em>realmente buscas</em>
+        </h1>
+ 
+        <p>
+            Los mejores productos al mejor precio,<br>
+            directo a tu puerta.
+        </p>
+ 
+        <div class="hero-actions">
+ 
+            <a href="/productos/" class="btn-primary">
+                Ver productos
+            </a>
+ 
+            <a href="/carrito/" class="btn-ghost">
+                Mi carrito
+            </a>
+ 
+        </div>
+ 
+    </div>
+ 
+    <!-- Anillos decorativos animados -->
+    <div class="hero-ring hero-ring--1"></div>
+    <div class="hero-ring hero-ring--2"></div>
+    <div class="hero-ring hero-ring--3"></div>
+ 
+</section>
+ 
+<section class="productos">
+ 
+    <div class="productos-header">
+        <h2 class="titulo-productos">
+            Productos <em>Destacados</em>
+        </h2>
+        <a href="/productos/" class="ver-todos">Ver todos →</a>
+    </div>
+ 
+    <div class="contenedor-productos inicio-grid">
+ 
+        {% for producto in productos|slice:":8" %}
+ 
+        <div class="card-producto">
+ 
+            <div class="card-imagen">
+                <img
+                    src="{{ producto.imagen.url }}"
+                    alt="{{ producto.nombre }}"
+                >
+            </div>
+ 
+            <div class="contenido-card">
+ 
+                <h3>{{ producto.nombre }}</h3>
+ 
+                <p class="precio">${{ producto.precio }}</p>
+ 
+                <p class="card-desc">
+                    {{ producto.descripcion|truncatechars:80 }}
+                </p>
+ 
+                <div class="botones-card">
+ 
+                    <a href="/producto/{{ producto.slug }}/" class="btn-outline">
+                        Ver detalles
+                    </a>
+ 
+                    <a href="/agregar/{{ producto.id }}/" class="btn-agregar">
+                        + Agregar
+                    </a>
+ 
+                </div>
+ 
+            </div>
+ 
+        </div>
+ 
+        {% endfor %}
+ 
+    </div>
+ 
+</section>
+
+<div class="boton-productos">
+
+    
+
+</div>
+
+{% endblock %}

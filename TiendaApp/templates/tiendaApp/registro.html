@@ -1,0 +1,31 @@
+{% extends 'TiendaApp/base.html' %}
+
+{% block title %}
+Crear cuenta
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-container">
+
+    <form method="POST" class="auth-form">
+
+        {% csrf_token %}
+
+        <h2>Crear cuenta</h2>
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Registrarse
+        </button>
+
+        <p class="auth-link">
+            ¿Ya tienes cuenta? <a href="/login/">Iniciar sesión</a>
+        </p>
+
+    </form>
+
+</section>
+
+{% endblock %}
