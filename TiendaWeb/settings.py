@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['web-production-e19d9.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # ============================================
@@ -211,3 +211,8 @@ DEFAULT_FROM_EMAIL = 'caminapopayan@gmail.com'
 # ============================================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = ['web-production-e19d9.up.railway.app', 'localhost', '127.0.0.1']
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
