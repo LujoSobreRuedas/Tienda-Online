@@ -3119,3 +3119,127 @@ form ul.errorlist li::before {
   margin: 0;
   line-height: 1.5;
 }
+/* ============================================
+   FORMULARIO AGREGAR PRODUCTO
+   ============================================ */
+
+.formulario-producto {
+    width: 100%;
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   TITULO
+   ============================================ */
+
+.formulario-producto h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #111827;
+    font-weight: 700;
+}
+
+/* ============================================
+   FORMULARIO
+   ============================================ */
+
+.formulario-producto form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ============================================
+   INPUTS Y TEXTAREA
+   ============================================ */
+
+.formulario-producto input,
+.formulario-producto textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+/* ============================================
+   EFECTO FOCUS
+   ============================================ */
+
+.formulario-producto input:focus,
+.formulario-producto textarea:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* ============================================
+   TEXTAREA
+   ============================================ */
+
+.formulario-producto textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* ============================================
+   INPUT FILE
+   ============================================ */
+
+.formulario-producto input[type="file"] {
+    padding: 12px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+/* ============================================
+   BOTON
+   ============================================ */
+
+.formulario-producto button {
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* ============================================
+   HOVER BOTON
+   ============================================ */
+
+.formulario-producto button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+
+    .formulario-producto {
+        margin: 30px 20px;
+        padding: 25px;
+    }
+
+    .formulario-producto h2 {
+        font-size: 1.6rem;
+    }
+
+}
